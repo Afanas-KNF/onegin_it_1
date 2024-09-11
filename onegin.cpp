@@ -21,25 +21,34 @@ int main()
       printf("Error: Failed to open file\n");
       return 1;
     }
-    char copytxt[numsimb] = {};       // в этот массив будем копировать текст из файла onegin.txt
-    int count = 0;
-    for(int i = 0, c; (c = fgetc(file)) != EOF; i++)// будем записывать с помощью функции fgetc посимвольно пока не встртим EndOfFIle
-    {                                               // символы \n тоже записываются
-        count++;
-        copytxt[i] = c;
-    }
-    printf("%d\n", count);  // выводит количество символов записанных в массив
-    for(int i = 0; i < numsimb; i++)
+    char copytxt[][maxlen] = {};       // в этот массив будем копировать текст из файла onegin.txt
+    int c = 0;
+    int i = 0;
+    int j = 0;
+    for (int i = 0, j =0, c = 0; (c = fgetc(file)) != EOF; i++)
     {
-        printf("%c", copytxt[i]); //выводит то что скопировали из текста
+        if (isalpha(c) or c == ' ')
+        {
+            copytxt[j][i] = c;
+        }
+        else if (c == '\n')
+        {
+            copytxt[j][i] = c;
+            j++;
+        }
     }
-
+    for(int a = 0; a < j; a++)
+    {
+        for(int b = 0; b < i; b++)
+        {
+            printf("%c", copytxt[a][b]);
+        }
+    }
     //fgets(copytxt, numsimb, file);   // будет читать только одну строку так как функция считывает до первого символа \n
 
-    char text[][maxlen] = {};   // в этот массив будем записывать все алфавитные символы и пробелы а если встречается \n
-    fill_text(copytxt, text);
-    sort_str(text);
-    print_text(text);
+    //char text[][maxlen] = {};   // в этот массив будем записывать все алфавитные символы и пробелы а если встречается \n
+    //sort_str(text);
+    //print_text(text);
     // printf("%s",text[1]);
     // printf("\n%c", text[1][3]);
     // printf("\n%d", text[1][3]);
@@ -107,7 +116,7 @@ void print_text(char text[][maxlen])
     }
 }
 
-void fill_text(char copytxt[], char text[][maxlen])
+/*void fill_text(char copytxt[], char text[][maxlen])
 {
     for (int i = 0; i < numstr; i++)
     {
@@ -129,4 +138,4 @@ void fill_text(char copytxt[], char text[][maxlen])
         }
     }
     // print_text(text);
-}
+}*/
